@@ -260,7 +260,7 @@
         <a href="https://posgrado.upea.bo/"
            class="btn btn-flex flex-center btn-custom btn-primary overflow-hidden text-nowrap px-0 h-40px w-100"
            data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss-="click"
-           title="Posgrado Upea.">
+           title="Posgrado Upea." target="_blank">
             <span class="btn-label">Posgrado</span>
             <span class="svg-icon btn-icon svg-icon-2 m-0">
                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"

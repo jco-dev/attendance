@@ -11,10 +11,12 @@
                     <img alt="Logo" src="<?= base_url('assets/media/avatars/300-1.jpg') ?>"/>
                 </div>
                 <div class="d-flex flex-column">
-                    <div class="fw-bold d-flex align-items-center fs-5">Juan Condori
-                        <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Admin</span>
+                    <div class="fw-bold d-flex align-items-center fs-6"><?= ucwords(session()->get('nombres')) . " " ?>
+                        <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">
+                            <?= "ADMIN" ?>
+                        </span>
                     </div>
-                    <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">juancondori@kt.com</a>
+                    <a href="#" class="fw-semibold text-muted text-hover-primary fs-7"><?= session()->get('correo') ?></a>
                 </div>
             </div>
         </div>
@@ -23,7 +25,9 @@
         </div>
         <div class="separator my-2"></div>
         <div class="menu-item px-5">
-            <a href="#" class="menu-link px-5">Cerrar sesión</a>
+            <form id="frm-logout" action="<?= route_to('salir') ?>" method="POST">
+                <a class="menu-link px-5" onclick="document.getElementById('frm-logout').submit()">Cerrar sesión</a>
+            </form>
         </div>
     </div>
 </div>

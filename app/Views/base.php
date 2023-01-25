@@ -92,6 +92,17 @@
             $('span#hour').html('<i class="fa fa-clock text-dark"></i> <span class="fs-6">&nbsp;' + (ahora.getHours() < 10 ? '0' : '') + ahora.getHours() + ':' + (ahora.getMinutes() < 10 ? '0' : '') + ahora.getMinutes() + ':' + (ahora.getSeconds() < 10 ? '0' : '') + ahora.getSeconds() + '</span>');
         }, 1000);
     </script>
+    <script>
+        <?php if (session()->getFlashdata('msg')) { ?>
+            Swal.fire({
+                title: "<?= session()->getFlashdata('titulo') ?>",
+                text: "<?= session()->getFlashdata('msg') ?>",
+                icon: "<?= session()->getFlashdata('icono') ?>",
+                timer: 3000,
+                showConfirmButton: false,
+            });
+        <?php } ?>
+    </script>
     <?= $this->renderSection('js') ?>
 </body>
 </html>

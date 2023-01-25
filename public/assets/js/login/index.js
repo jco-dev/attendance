@@ -40,24 +40,6 @@ const KTSigninGeneral = (function () {
                         submitButton.setAttribute("data-kt-indicator", "on");
                         submitButton.disabled = !0;
                         form.submit();
-                        // setTimeout(function () {
-                        //     submitButton.removeAttribute("data-kt-indicator");
-                        //     submitButton.disabled = !1;
-                        //     Swal.fire({
-                        //         text: "You have successfully logged in!",
-                        //         icon: "success",
-                        //         buttonsStyling: !1,
-                        //         confirmButtonText: "Bienvenido al sistema Juan Carlos",
-                        //         customClass: {confirmButton: "btn btn-primary"},
-                        //     }).then(function (t) {
-                        //         if (t.isConfirmed) {
-                        //             form.querySelector('[name="email"]').value = "";
-                        //             form.querySelector('[name="password"]').value = "";
-                        //             const i = form.getAttribute("data-kt-redirect-url");
-                        //             i && (location.href = i);
-                        //         }
-                        //     });
-                        // }, 2e3)
                     }else{
                         form.querySelector('[name="clave"]').value = "";
                     }

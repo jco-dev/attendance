@@ -44,8 +44,7 @@
             <div class="d-flex flex-column-fluid flex-lg-row-auto justify-content-center justify-content-lg-end p-12">
                 <div class="bg-body d-flex flex-center rounded-4 w-md-600px p-10">
                     <div class="w-md-400px">
-                        <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form"
-                              data-kt-redirect-url="#" action="#">
+                        <form class="form w-100" method="POST" novalidate="novalidate" id="frm_login" action="<?= route_to('login')?>">
                             <div class="text-center mb-11">
                                 <h1 class="text-dark fw-bolder mb-3">Iniciar Sesión</h1>
                                 <div class="text-gray-500 fw-semibold fs-6">con tus redes sociales</div>
@@ -72,11 +71,11 @@
                                 <span class="w-250px text-gray-500 fw-semibold fs-7">o con tu cuenta</span>
                             </div>
                             <div class="fv-row mb-8">
-                                <input type="text" placeholder="Usuario" name="email" autocomplete="off"
+                                <input type="email" placeholder="Usuario" name="correo" autocomplete="off"
                                        class="form-control bg-transparent" autofocus />
                             </div>
                             <div class="fv-row mb-3">
-                                <input type="password" placeholder="Contraseña" name="password" autocomplete="off"
+                                <input type="password" placeholder="Contraseña" name="clave" autocomplete="off"
                                        class="form-control bg-transparent"/>
                             </div>
                             <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
@@ -84,7 +83,7 @@
                                 <a href="#" class="link-primary">¿Has olvidado tu contraseña?</a>
                             </div>
                             <div class="d-grid mb-10">
-                                <button type="submit" id="kt_sign_in_submit" class="btn btn-primary">
+                                <button type="submit" id="btn_login_submit" class="btn btn-primary">
                                     <span class="indicator-label">Ingresar</span>
                                     <span class="indicator-progress">
                                         Espere por favor...
@@ -101,6 +100,17 @@
 
     <script src="<?= base_url('assets/plugins/global/plugins.bundle.js') ?>"></script>
     <script src="<?= base_url('assets/js/scripts.bundle.js') ?>"></script>
-    <script src="<?= base_url('assets/js/custom/authentication/sign-in/general.js') ?>"></script>
+    <script src="<?= base_url('assets/js/login/index.js') ?>"></script>
+    <script>
+        <?php if (session()->getFlashdata('msg')) { ?>
+            Swal.fire({
+                title: "Error al ingresar al Sistema",
+                text: "<?= session()->getFlashdata('msg') ?>",
+                icon: "error",
+                timer: 2000,
+                showConfirmButton: false,
+            });
+        <?php } ?>
+    </script>
 </body>
 </html>

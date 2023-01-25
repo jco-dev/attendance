@@ -60,10 +60,6 @@ Marcado
                     </span>
                 </div>
             </div>
-<!--            <div class="text-center pb-15 px-5">-->
-<!--                <img src="--><?php //= base_url('assets/media/illustrations/sketchy-1/2.png') ?><!--" alt=""-->
-<!--                     class="mw-50 h-100px h-sm-325px"/>-->
-<!--            </div>-->
         </div>
     </div>
 </div>
