@@ -14,8 +14,11 @@ class Login extends BaseController
         $this->usuarioModel = new UsuarioModel();
     }
 
-    public function index(): string
+    public function index()
     {
+        if (session()->has('id')) {
+            return redirect()->to(base_url(route_to('marcado')));
+        }
         return view('login');
     }
 

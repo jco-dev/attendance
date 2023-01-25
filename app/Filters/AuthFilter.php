@@ -28,31 +28,30 @@ class AuthFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        if (session()->has('id')) {
-            $persona = (new UsuarioModel())->buscarUsuarioPorCorreo(session()->get('correo'));
-            if (!$persona)
-                $this->redireccionarLogin();
-
-            $encrypt = service('encrypter');
-            $grupoAsignadoUsuario = (new UsuarioModel())->obtenerGrupoUsuario($encrypt->decrypt(session()->get('id')));
-            if (!$grupoAsignadoUsuario)
-                $this->redireccionarLogin();
-
-            $data = false;
-            if (!in_array('superadmin', $this->objectoAVector($grupoAsignadoUsuario))) {
-                foreach ($this->objectoAVector($grupoAsignadoUsuario) as $item) {
-                    $respuesta = in_array($item, $arguments);
-                    if ($respuesta) {
-                        $data = true;
-                        break;
-                    }
-                    throw PageNotFoundException::forPageNotFound();
-                }
-            }
-        } else {
-            if (session()->has('id'))
-                session()->destroy();
+        if (!session()->has('id')) {
             return redirect()->to(base_url('login'));
+        }
+
+        $persona = (new UsuarioModel())->buscarUsuarioPorCorreo(session()->get('correo'));
+        if (!$persona)
+            $this->redireccionarLogin();
+
+        $encrypt = service('encrypter');
+        $grupoAsignadoUsuario = (new UsuarioModel())->obtenerGrupoUsuario($encrypt->decrypt(session()->get('id')));
+        if (!$grupoAsignadoUsuario)
+            $this->redireccionarLogin();
+
+        $data = false;
+        if (!in_array('superadmin', $this->objectoAVector($grupoAsignadoUsuario))) {
+            foreach ($this->objectoAVector($grupoAsignadoUsuario) as $item) {
+                $respuesta = in_array($item, $arguments);
+                if ($respuesta) {
+                    $data = true;
+                    break;
+                }
+                throw PageNotFoundException::forPageNotFound();
+            }
+
         }
     }
 
@@ -62,6 +61,7 @@ class AuthFilter implements FilterInterface
             session()->destroy();
         return redirect()->to(base_url('login'));
     }
+
     private function objectoAVector($objecto): array
     {
         $aux = [];

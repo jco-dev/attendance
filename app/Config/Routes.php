@@ -10,13 +10,13 @@ $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 
-/** Root  */
-$routes->get('/', 'Tablero::index', ['name' => 'tablero']);
-
 /** Auth */
 $routes->get('login', 'Login::index', ['name' => 'login']);
 $routes->post('login', 'Login::authenticate', ['name' => 'login']);
 $routes->post('salir', 'Login::salir', ['name' => 'salir']);
+
+/** Root  */
+$routes->get('/', 'Tablero::index', ['name' => 'tablero', 'filter' => 'auth:superadmin,admin']);
 
 /** Marcado */
 $routes->get('marcado', 'Asistencia::index', ['name' => 'marcado', 'filter' => 'auth:superadmin,admin']);

@@ -128,7 +128,7 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="#">
+                    <a class="menu-link" href="<?= base_url(route_to('marcado')) ?>">
                         <span class="menu-icon">
                             <span class="svg-icon svg-icon-2">
                                 <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
