@@ -33,7 +33,7 @@ Marcado
                             </i>
                         </label>
                         <input type="text" class="form-control form-control-solid" minlength="6"
-                               maxlength="15" id="ci" name="ci" autocomplete="off" autofocus
+                               maxlength="15" id="ci" name="ci" placeholder="Ingrese su número de carnet de identidad" autocomplete="off" autofocus
                                required />
                     </div>
                     <div class="d-flex flex-wrap justify-content-center pb-lg-0">
