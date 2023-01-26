@@ -22,9 +22,7 @@ Marcado
                     <h3 class="pb-3">CONTROL DE ASISTENCIA</h3>
                 </div>
 
-                <form class="form w-100" novalidate="novalidate" id="kt_password_reset_form"
-                      data-kt-redirect-url="#"
-                      action="#">
+                <form class="form w-100" novalidate="novalidate" id="frm_marcado"  method="POST" action="<?= route_to('verificar-registro')?>">
                     <div class="fv-row mb-8">
                         <label for="ci" class="required form-label mt-5">Carnet de Identidad
                             <i class="fas fa-exclamation-circle ms-2 fs-7"
@@ -37,10 +35,10 @@ Marcado
                                required />
                     </div>
                     <div class="d-flex flex-wrap justify-content-center pb-lg-0">
-                        <button type="button" id="kt_password_reset_submit" class="btn btn-primary me-4">
+                        <button type="submit" id="btn_marcado_submit" class="btn btn-primary me-4">
                             <span class="indicator-label">Guardar</span>
                             <span class="indicator-progress">
-                                Registrando...
+                                Espere por favor...
                                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                             </span>
                         </button>
@@ -63,4 +61,8 @@ Marcado
         </div>
     </div>
 </div>
+<?= $this->endSection() ?>
+
+<?= $this->section('js') ?>
+    <script src="<?= base_url('assets/js/marcado/index.js') ?>"></script>
 <?= $this->endSection() ?>

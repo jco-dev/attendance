@@ -1,6 +1,8 @@
 "use strict";
 
-const KTSigninGeneral = (function () {
+import KTUtil from "../scripts.bundle";
+
+const KTLogin = (function () {
     let form;
     let submitButton;
     let validator;
@@ -49,5 +51,5 @@ const KTSigninGeneral = (function () {
     };
 })();
 KTUtil.onDOMContentLoaded(function () {
-    KTSigninGeneral.init();
+    KTLogin.init();
 });
