@@ -19,9 +19,11 @@ $routes->post('salir', 'Login::salir', ['name' => 'salir']);
 $routes->get('/', 'Tablero::index', ['name' => 'tablero', 'filter' => 'auth:superadmin,admin']);
 
 /** Marcado */
-$routes->get('marcado', 'Asistencia::index', ['name' => 'marcado', 'filter' => 'auth:superadmin,admin']);
-$routes->post('marcado', 'Asistencia::marcado', ['name' => 'marcado', 'filter' => 'auth:superadmin,admin,user']);
-$routes->post('marcar-salida-confirmacion', 'Asistencia::marcarSalidaConfirmacion', ['name' => 'marcar-salida-confirmacion', 'filter' => 'auth:superadmin,admin,user']);
+$routes->group("", ['filter' => 'auth:superadmin,admin'], function ($routes) {
+    $routes->get('marcado', 'Asistencia::index', ['name' => 'marcado']);
+    $routes->post('marcado', 'Asistencia::marcado', ['name' => 'marcado']);
+    $routes->post('marcar-salida-confirmacion', 'Asistencia::marcarSalidaConfirmacion', ['name' => 'marcar-salida-confirmacion']);
+});
 
 if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
     require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
