@@ -65,7 +65,7 @@ class Asistencia extends BaseController
                 if (!$this->model->where("asignacion_horario_id", $asignacion->id)->where("fecha", date('Y-m-d'))->first()) {
                     return $this->response->setJSON([
                         'compuesto' => true,
-                        'icon'      => 'error',
+                        'icono'      => 'error',
                         'titulo'    => "Control de Asistencia",
                         'button'    => "danger",
                         'msg'       => "<strong>{$persona->nombres} {$persona->paterno} {$persona->materno}</strong><br>No ha marcado la entrada, marque su entrada con el administrador para marcar la salida."
@@ -100,9 +100,9 @@ class Asistencia extends BaseController
                 return $this->response->setJSON(
                     [
                         'simple'    => true,
-                        'icon'      => 'error',
-                        'titulo'    => "Error",
-                        'message'   => "{$persona->nombres}  {$persona->paterno} {$persona->materno} no estás dentro del horario asignado."
+                        'icono'      => 'error',
+                        'titulo'    => "Control de Asistencia",
+                        'msg'   => "<strong>{$persona->nombres}  {$persona->paterno} {$persona->materno}</strong><br>No estás dentro del horario asignado."
                     ]
                 );
                 break;
@@ -116,7 +116,6 @@ class Asistencia extends BaseController
                 ]);
                 break;
         }
-        return NULL;
     }
 
     private function verificarInicioSesion(): array
@@ -258,14 +257,14 @@ class Asistencia extends BaseController
                 'simple' => true,
                 'icono'  => 'success',
                 'titulo' => "Control de Asistencia",
-                'msg'    => "<strong>{$persona->nombres} {$persona->paterno}<strong><br>Salida registrado correctamente."
+                'msg'    => "<strong>{$persona->nombres} {$persona->paterno}</strong><br>Salida registrado correctamente."
             ];
         }else{
             $msg =  [
                 'simple' => true,
                 'icono'  => 'error',
                 'titulo' => "Control de Asistencia",
-                'msg'    => "<strong>{$persona->nombres} {$persona->paterno}<strong><br>Error al registrar la salida."
+                'msg'    => "<strong>{$persona->nombres} {$persona->paterno}</strong><br>Error al registrar la salida."
             ];
         }
 
@@ -285,8 +284,6 @@ class Asistencia extends BaseController
             $str .= ($df->h > 1) ? $df->h . ' horas ' : $df->h . ' hora ';
         if ($df->i > 0)
             $str .= ($df->i > 1) ? $df->i . ' minutos ' : $df->i . ' minuto ';
-        if ($df->s > 0)
-            $str .= ($df->s > 1) ? $df->s . ' segundos ' : $df->s . ' segundo ';
         return $str;
     }
 
@@ -347,10 +344,10 @@ class Asistencia extends BaseController
         $asistencia_id = $this->request->getPost('id');
         $asistencia = $this->model->find($asistencia_id);
         $asignacion = (new AsignacionHorarioModel())->where(['id' => $asistencia->asignacion_horario_id, 'estado' => 'REGISTRADO'])->first();
-        $persona = (new PersonaModel())->where('id', $asignacion->persona->id)->first();
+        $persona = (new PersonaModel())->where('id', $asignacion->persona_id)->first();
         $res = [];
         if ($asistencia)
-            $res = $this->marcarSalida($asistencia_id->salida, $asistencia->id, $persona);
+            $res = $this->marcarSalida($asistencia->salida, $asistencia->id, $persona);
         return $this->response->setJSON($res);
     }
 }

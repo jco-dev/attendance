@@ -28,7 +28,7 @@ const KTMarcado = (function () {
 
             function marcarSalida(id) {
                 $.ajax({
-                    url: "/asistencia/marcarSalidaConfirmacion",
+                    url: window.location.origin + "/marcar-salida-confirmacion",
                     type: "POST",
                     data: {id: id},
                     dataType: "json",
@@ -37,9 +37,9 @@ const KTMarcado = (function () {
                             Swal.fire({
                                 icon: response.icono,
                                 title: response.titulo,
-                                text: response.msg,
+                                html: response.msg,
                                 showConfirmButton: false,
-                                timer: 2000,
+                                timer: 3000,
                             });
 
                             $("#ci").val("");
