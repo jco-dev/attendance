@@ -165,7 +165,7 @@ class Asistencia extends BaseController
                 'titulo'    => 'Asignación de Horario',
                 'icono'     => 'error',
                 'button'    => 'danger',
-                'msg'       => "{$persona->nombres} {$persona->paterno} con CI: {$persona->ci} {$persona->expedido}, no tiene asignación de horario vigente."
+                'msg'       => "{$persona->nombres} {$persona->paterno} con CI: {$persona->ci} {$persona->expedido} <br>No tiene asignación de horario vigente."
             ];
 
         return $msg;
