@@ -25,6 +25,9 @@ $routes->group("", ['filter' => 'auth:superadmin,admin'], function ($routes) {
     $routes->post('marcar-salida-confirmacion', 'Asistencia::marcarSalidaConfirmacion', ['name' => 'marcar-salida-confirmacion']);
 });
 
+/** Persona */
+$routes->get('listado-personas', 'Persona::index', ['name' => 'listado-personas']);
+
 if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
     require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
 }
