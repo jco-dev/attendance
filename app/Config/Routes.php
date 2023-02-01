@@ -27,6 +27,7 @@ $routes->group("", ['filter' => 'auth:superadmin,admin'], function ($routes) {
 
 /** Persona */
 $routes->get('listado-personas', 'Persona::index', ['name' => 'listado-personas']);
+$routes->get('ajax-listado-personas', 'Persona::ajaxListadoPersona', ['name' => 'ajax-listado-personas']);
 
 if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
     require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
