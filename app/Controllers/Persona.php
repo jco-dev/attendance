@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 use App\Controllers\BaseController;
+use App\Models\PersonaModel;
 use App\Libraries\SSP;
 
 class Persona extends BaseController
@@ -50,5 +51,25 @@ class Persona extends BaseController
             'driver' => $db->DBDriver,
         ];
         return $this->response->setJSON(SSP::complex($_GET, $sql_details, $table, $primaryKey, $columns, null));
+    }
+
+    public function store(){
+        if(!$this->validate('validacionPersona'))
+            return $this->response->setJSON(['error' => $this->validator->getErrors()]);
+        // TODO: Verificar el registro
+
+        
+
+    }
+
+    public function verificarRegistroPersonaCi()
+    {
+        $ci = $this->request->getPost('ci');
+        $persona = new PersonaModel();
+        if($persona->where('ci', trim($ci))->find())
+            $respuesta = true;
+        else
+            $respuesta = false;
+        return $this->response->setJSON($respuesta);
     }
 }

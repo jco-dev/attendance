@@ -86,6 +86,7 @@
     <?= $this->include("layout/scrolltop") ?>
     <script src="<?= base_url('assets/plugins/global/plugins.bundle.js') ?>"></script>
     <script src="<?= base_url('assets/js/scripts.bundle.js') ?>"></script>
+    <script src="<?= base_url('assets/js/asistencia.js') ?>"></script>
     <script>
         setInterval(function() {
             const ahora = new Date();
