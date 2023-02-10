@@ -9,8 +9,7 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('css') ?>
-    <link href="<?= base_url('assets/plugins/custom/datatables/datatables.bundle.css') ?>" rel="stylesheet"
-          type="text/css"/>
+    <link href="<?= base_url('assets/plugins/custom/datatables/datatables.bundle.css') ?>" rel="stylesheet" type="text/css" />
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -129,7 +128,7 @@
                                             data-hide-search="true" data-placeholder="Seleccione" name="expedido"
                                             required>
                                         <option></option>
-                                        <option value="QR"> Nueva cédula con código QR</option>
+                                        <option value="QR">Nueva cédula con código QR</option>
                                         <option value="CH">Chuquisaca</option>
                                         <option value="LP">La Paz</option>
                                         <option value="CB">Cochabamba</option>
@@ -144,12 +143,10 @@
                             </div>
 
                             <div class="col-md-4 fv-row">
-                                <label class="required fs-6 fw-semibold mb-2">R.U.</label>
+                                <label class="fs-6 fw-semibold mb-2">R.U.</label>
                                 <div class="position-relative d-flex align-items-center">
-                                    <label>
                                         <input class="form-control form-control-solid"
-                                               placeholder="registro universitario" name="ru" required/>
-                                    </label>
+                                               placeholder="registro universitario" name="ru" />
                                 </div>
                             </div>
                         </div>
@@ -196,8 +193,7 @@
                         </div>
 
                         <div class="text-center">
-                            <button type="reset" id="boton_cancelar_formulario" class="btn btn-light me-3">Cancel
-                            </button>
+                            <button type="reset" id="boton_cancelar_formulario" class="btn btn-light me-3">Cancelar</button>
                             <button type="submit" id="boton_enviar_formulario" class="btn btn-primary">
                                 <span class="indicator-label">Registrar</span>
                                 <span class="indicator-progress">Por favor espere...
@@ -211,31 +207,362 @@
         </div>
     </div>
 
+    <div class="modal fade" id="modal_asistencia_editar" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog" id="modal_asistencia_editar_dialog">
+            <div class="modal-content rounded">
+                <div class="modal-header mb-5">
+                    <h3 class="modal-title" id="modal_asistencia_editar_titulo"></h3>
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <span class="svg-icon svg-icon-1">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                      transform="rotate(-45 6 17.3137)" fill="currentColor"/>
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                      fill="currentColor"/>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15" id="modal_asistencia_editar_body">
+                    <form id="formulario_editar_persona" class="form"
+                          action="<?= base_url(route_to('update-persona')) ?>" method="POST">
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-4 fv-row">
+                                <label class="required fs-6 fw-semibold mb-2">CI</label>
+                                <div class="position-relative d-flex align-items-center">
+                                    <input class="form-control form-control-solid" placeholder="carnet de identidad"
+                                           name="ci" required/>
+                                    <input type="hidden" name="id" value="" />
+                                </div>
+                            </div>
+                            <div class="col-md-4 fv-row">
+                                <label class="required fs-6 fw-semibold mb-2">Expedido</label>
+                                <div class="position-relative d-flex align-items-center">
+                                    <select class="form-select form-select-solid" data-placeholder="Seleccione" name="expedido" required>
+                                        <option></option>
+                                        <option value="QR">Nueva cédula con código QR</option>
+                                        <option value="CH">Chuquisaca</option>
+                                        <option value="LP">La Paz</option>
+                                        <option value="CB">Cochabamba</option>
+                                        <option value="OR">Oruro</option>
+                                        <option value="PT">Potosí</option>
+                                        <option value="TJ">Tarija</option>
+                                        <option value="SC">Santa Cruz</option>
+                                        <option value="BE">Beni</option>
+                                        <option value="PD">Pando</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 fv-row">
+                                <label class="fs-6 fw-semibold mb-2">R.U.</label>
+                                <div class="position-relative d-flex align-items-center">
+                                    <input class="form-control form-control-solid"
+                                           placeholder="registro universitario" name="ru" form="formulario_editar_persona"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-12 fv-row">
+                                <label class="required fs-6 fw-semibold mb-2">Nombre(s)</label>
+                                <div class="position-relative d-flex align-items-center">
+                                    <input class="form-control form-control-solid" name="nombres" required/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="required fs-6 fw-semibold mb-2">Paterno</label>
+                                <div class="position-relative d-flex align-items-center">
+                                    <input class="form-control form-control-solid" name="paterno" required/>
+                                </div>
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="fs-6 fw-semibold mb-2">Materno</label>
+                                <div class="position-relative d-flex align-items-center">
+                                    <input class="form-control form-control-solid" name="materno"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-4 fv-row">
+                                <label class="required fs-6 fw-semibold mb-2">Celular</label>
+                                <div class="position-relative d-flex align-items-center">
+                                    <input type="number" class="form-control form-control-solid" placeholder="celular"
+                                           name="celular" required/>
+                                </div>
+                            </div>
+                            <div class="col-md-8 fv-row">
+                                <label class="required fs-6 fw-semibold mb-2">Correo</label>
+                                <div class="position-relative d-flex align-items-center">
+                                    <input type="email" class="form-control form-control-solid"
+                                           placeholder="correo electrónico" name="correo" required/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="reset" id="boton_cancelar_formulario_editar" class="btn btn-light me-3">Cancelar</button>
+                            <button type="submit" id="boton_enviar_formulario_editar" class="btn btn-primary">
+                                <span class="indicator-label">Editar</span>
+                                <span class="indicator-progress">Por favor espere...
+									<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 <?= $this->endSection() ?>
 
 <?= $this->section('js') ?>
     <script src="<?= base_url('assets/plugins/custom/datatables/datatables.bundle.js') ?>"></script>
     <script>
         $('*:input[type!=hidden]:first').focus();
-        // Class
+
+        const limpiarCamposFormulario = () => {
+            $("input[name='id']").val("");
+            $("input[name='ci']").val("");
+            $("select[name='expedido']").val("").trigger('change');
+            $("input[name='ru']").val("");
+            $("input[name='nombres']").val("");
+            $("input[name='paterno']").val("");
+            $("input[name='materno']").val("");
+            $("input[name='celular']").val("");
+            $("input[name='correo']").val("");
+        }
+
         const DatatablePersonal = function () {
             let table;
             let datatable;
 
+            function asignarValoresFormulario(response) {
+                $("input[name='id']").val(response.id);
+                $("input[name='ci']").val(response.ci);
+                $("select[name='expedido']").val(response.expedido).trigger('change');
+                $("input[name='ru']").val(response.ru);
+                $("input[name='nombres']").val(response.nombres);
+                $("input[name='paterno']").val(response.paterno);
+                $("input[name='materno']").val(response.materno);
+                $("input[name='celular']").val(response.celular);
+                $("input[name='correo']").val(response.correo);
+            }
+
+            const editarPersona = (id) => {
+                function limpiarValidacion(inputs) {
+                    inputs.forEach(input => {
+                        let elements = input.parentNode.parentElement.getElementsByClassName('validacion');
+                        while (elements.length > 0) {
+                            elements[0].parentNode.removeChild(elements[0]);
+                        }
+                    });
+                }
+
+                $.post("<?= base_url(route_to('editar-persona'))?>", { id }, function(response){
+                    if(response == null){
+                        Swal.fire({
+                            title: "Error",
+                            text: "Error al editar",
+                            icon: "error",
+                            timer: 3000,
+                            showConfirmButton: false,
+                        });
+                    }else{
+                        asignarValoresFormulario(response);
+                        parametrosModal("modal_asistencia_editar", "Editar Personal", "modal-lg");
+                        let form = document.querySelector('#formulario_editar_persona');
+                        let submitButtonEditar = document.getElementById('boton_enviar_formulario_editar');
+                        let cancelButtonEditar = document.getElementById('boton_cancelar_formulario_editar');
+                        let inputs = form.querySelectorAll('input, select');
+
+                        submitButtonEditar.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            e.stopImmediatePropagation();
+                            if (form.checkValidity() === false) {
+                                e.stopPropagation();
+                            } else {
+                                submitButtonEditar.setAttribute('data-kt-indicator', 'on');
+                                submitButtonEditar.disabled = true;
+                                $.post("<?= base_url(route_to('actualizar-persona'))?>", $(form).serialize(), function(response){
+                                    if(typeof response.error !== 'undefined') {
+                                        submitButtonEditar.removeAttribute('data-kt-indicator');
+                                        submitButtonEditar.disabled = false;
+                                        limpiarValidacion(inputs);
+                                        let errors = Object.entries(response.error);
+                                        errors.forEach(error => {
+                                            let child = `<div class="form-text text-danger validacion validacion-${error[0]}">${error[1]}</div>`;
+                                            let input = document.querySelector('form#formulario_editar_persona [name="'+error[0]+'"]');
+                                            input.parentElement.insertAdjacentHTML('afterend', child);
+                                        });
+                                    }
+
+                                    if (typeof response.exito !== 'undefined') {
+                                        submitButtonEditar.setAttribute('data-kt-indicator', 'of');
+                                        submitButtonEditar.disabled = false;
+                                        limpiarValidacion(inputs);
+                                        $("#modal_asistencia_editar").modal('hide');
+                                        $("#modal_asistencia").modal('hide');
+                                        DatatablePersonal.init();
+                                        Swal.fire({
+                                            title: "Control de Asistencia",
+                                            text: response.exito,
+                                            icon: "success",
+                                            timer: 3000,
+                                            showConfirmButton: false,
+                                        });
+
+                                    }
+
+                                })
+                            }
+                        });
+
+                        cancelButtonEditar.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            e.stopImmediatePropagation();
+                            Swal.fire({
+                                text: "¿Estás seguro de cancelar la edición?",
+                                icon: "warning",
+                                showCancelButton: true,
+                                buttonsStyling: false,
+                                confirmButtonText: "Si, Cancelar!",
+                                cancelButtonText: "No",
+                                customClass: {
+                                    confirmButton: "btn btn-primary",
+                                    cancelButton: "btn btn-active-light"
+                                }
+                            }).then(function (result) {
+                                if (result.value) {
+                                    form.reset();
+                                    $("#modal_asistencia_editar").modal('hide');
+                                    let inputs = form.querySelectorAll('input, select');
+                                    limpiarValidacion(inputs);
+                                }
+                            });
+                        });
+
+                    }
+                })
+            }
+
+            const eliminarPersona = (id, nombre) => {
+                Swal.fire({
+                    text:  `¿Estás seguro de eliminar el registro del usuario: ${nombre}?`,
+                    icon: "warning",
+                    showCancelButton: true,
+                    buttonsStyling: false,
+                    confirmButtonText: "Si, Eliminar!",
+                    cancelButtonText: "No",
+                    customClass: {
+                        confirmButton: "btn btn-primary",
+                        cancelButton: "btn btn-active-light"
+                    }
+                }).then(function (result) {
+                    if (result.value) {
+                        $.post("<?= base_url(route_to('eliminar-persona'))?>", { id }, function(response){
+                            if(typeof response.error !== 'undefined'){
+                                Swal.fire({
+                                    title: "Control de Asistencia",
+                                    text: response.error,
+                                    icon: "error",
+                                    timer: 3000,
+                                    showConfirmButton: false,
+                                });
+                            }
+                            if(typeof response.exito !== 'undefined'){
+                                DatatablePersonal.init();
+                                Swal.fire({
+                                    title: "Control de Asistencia",
+                                    text: response.exito,
+                                    icon: "success",
+                                    timer: 3000,
+                                    showConfirmButton: false,
+                                });
+                            }
+                        })
+                    }
+                })
+            }
+
+            const activarPersona = (id, nombre) => {
+                Swal.fire({
+                    text:  `¿Estás seguro de activar el registro del usuario: ${nombre}?`,
+                    icon: "warning",
+                    showCancelButton: true,
+                    buttonsStyling: false,
+                    confirmButtonText: "Si, Activar!",
+                    cancelButtonText: "No",
+                    customClass: {
+                        confirmButton: "btn btn-primary",
+                        cancelButton: "btn btn-active-light"
+                    }
+                }).then(function (result) {
+                    if (result.value) {
+                        $.post("<?= base_url(route_to('activar-persona'))?>", { id }, function(response){
+                            if(typeof response.error !== 'undefined'){
+                                Swal.fire({
+                                    title: "Control de Asistencia",
+                                    text: response.error,
+                                    icon: "error",
+                                    timer: 3000,
+                                    showConfirmButton: false,
+                                });
+                            }
+                            if(typeof response.exito !== 'undefined'){
+                                DatatablePersonal.init();
+                                Swal.fire({
+                                    title: "Control de Asistencia",
+                                    text: response.exito,
+                                    icon: "success",
+                                    timer: 3000,
+                                    showConfirmButton: false,
+                                });
+                            }
+                        })
+                    }
+                })
+            }
+
+            const verAsignacionesHorario = (id) => {
+                $.post("<?= base_url(route_to('ver-asignaciones-horario'))?>", { id }, function(response){
+                    console.log(response)
+                    if(typeof response.exito !== 'undefined'){
+                        $("#modal .modal-body").html(response.exito);
+                        parametrosModal('modal', 'Asignaciones de Horario', 'modal-lg');
+                    }
+                })
+            }
             const initDatatable = function () {
-                datatable = $(table).DataTable({
+                 datatable = $(table).DataTable({
                     responsive: true,
                     processing: true,
                     serverSide: true,
+                    destroy: true,
                     ajax: {
                         url: "<?= base_url(route_to('ajax-listado-personas'))?>",
                         method: 'GET',
                     },
                 }).on('click', '#ul-options li a', function (e) {
-                    const editar = $(this)[0].classList.contains('editar');
-                    const eliminar = $(this)[0].classList.contains('eliminar');
-                    const asignarHorario = $(this)[0].classList.contains('asignar_horario');
-                    console.log(editar, eliminar, asignarHorario)
+                    e.stopImmediatePropagation();
+                    let id = $(this).data('id');
+                    if ($(this)[0].classList.contains('editar'))
+                        editarPersona(id);
+                    if ($(this)[0].classList.contains('eliminar')) {
+                        let nombre = $(this).data('nombre');
+                        eliminarPersona(id, nombre);
+                    }
+                    if ($(this)[0].classList.contains('activar')) {
+                        let nombre = $(this).data('nombre');
+                        activarPersona(id, nombre);
+                    }
+                    if ($(this)[0].classList.contains('asignar_horario'))
+                        verAsignacionesHorario(id);
 
                 })
             };
@@ -253,22 +580,17 @@
                     if (!table) {
                         return;
                     }
-
                     initDatatable();
                     handleSearchDatatable();
                 }
             };
         }();
 
-        KTUtil.onDOMContentLoaded(function () {
-            DatatablePersonal.init();
-        });
-
         $("#boton_agregar_personal").on("click", function (e) {
+            limpiarCamposFormulario();
             parametrosModal("modal_asistencia", "Agregar Personal", "modal-lg");
-            $("input[name='ci']").change(function (e) {
-                let ci = $(this).val();
-                $.post("<?= base_url(route_to('verificar-registro-ci-persona'))?>", {ci: $(this).val()}, function (response) {
+            function verificarRegistroPersona(ci) {
+                $.post("<?= base_url(route_to('verificar-registro-ci-persona'))?>", {ci}, function (response) {
                     if (response) {
                         Swal.fire({
                             title: "Registro encontrado",
@@ -290,104 +612,95 @@
                         }
                     }
                 })
-            })
+            }
+            $("input[name='ci']").change(function (e) {
+                let ci = $(this).val();
+                verificarRegistroPersona(ci);
+            });
         });
 
-        // Class definition
-        const KTModalNewTarget = function () {
+        const RegistrarPersona = function () {
             let submitButton;
             let cancelButton;
             let validator;
             let form;
-            let modal;
-            let modalEl;
 
-            // Handle form validation and submittion
             const handleForm = function () {
-                // Stepper custom navigation
 
-                // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
                 validator = FormValidation.formValidation(
                     form,
                     {
                         fields: {
-                            // ci: {
-                            //     validators: {
-                            //         notEmpty: {
-                            //             message: 'Este campo es requerido'
-                            //         }
-                            //     }
-                            // },
-                            // expedido: {
-                            //     validators: {
-                            //         notEmpty: {
-                            //             message: 'Este campo es requerido'
-                            //         }
-                            //     }
-                            // },
-                            // ru: {
-                            //     validators: {
-                            //         notEmpty: {
-                            //             message: 'Este campo es requerido'
-                            //         }
-                            //     }
-                            // },
-                            // nombres: {
-                            //     validators: {
-                            //         notEmpty: {
-                            //             message: 'Este campo es requerido'
-                            //         },
-                            //         regexp: {
-                            //             regexp: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/i,
-                            //             message:
-                            //                 "El nombre(s) puede contener letras",
-                            //         }
-                            //     }
-                            // },
-                            // paterno: {
-                            //     validators: {
-                            //         notEmpty: {
-                            //             message: 'Este campo es requerido'
-                            //         },
-                            //         regexp: {
-                            //             regexp: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/i,
-                            //             message:
-                            //                 "El apellido paterno puede contener letras",
-                            //         }
-                            //     }
-                            // },
-                            // materno: {
-                            //     validators: {
-                            //         regexp: {
-                            //             regexp: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/i,
-                            //             message:
-                            //                 "El apellido materno puede contener letras",
-                            //         }
-                            //     }
-                            // },
-                            // correo: {
-                            //     validators: {
-                            //         regexp: {
-                            //             regexp: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                            //             message: "El valor no es una dirección de correo electrónico válida",
-                            //         },
-                            //         notEmpty: {message: "El correo electrónico es requerido"},
-                            //     },
-                            // },
-                            // celular: {
-                            //     validators: {
-                            //         notEmpty: {
-                            //             message: "Este campo es requerido",
-                            //         },
-                            //         regexp: {
-                            //             regexp: /^(7|6)?[0-9]{7}$/i,
-                            //             message: "El número de celular debe empezar por 6 o 7",
-                            //         },
-                            //         integer: {
-                            //             message: "El número de celular no es válido",
-                            //         },
-                            //     },
-                            // },
+                            ci: {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Este campo es requerido'
+                                    }
+                                }
+                            },
+                            expedido: {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Este campo es requerido'
+                                    }
+                                }
+                            },
+                            nombres: {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Este campo es requerido'
+                                    },
+                                    regexp: {
+                                        regexp: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/i,
+                                        message:
+                                            "El nombre(s) puede contener letras",
+                                    }
+                                }
+                            },
+                            paterno: {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Este campo es requerido'
+                                    },
+                                    regexp: {
+                                        regexp: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/i,
+                                        message:
+                                            "El apellido paterno puede contener letras",
+                                    }
+                                }
+                            },
+                            materno: {
+                                validators: {
+                                    regexp: {
+                                        regexp: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/i,
+                                        message:
+                                            "El apellido materno puede contener letras",
+                                    }
+                                }
+                            },
+                            correo: {
+                                validators: {
+                                    regexp: {
+                                        regexp: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                        message: "El valor no es una dirección de correo electrónico válida",
+                                    },
+                                    notEmpty: {message: "El correo electrónico es requerido"},
+                                },
+                            },
+                            celular: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Este campo es requerido",
+                                    },
+                                    regexp: {
+                                        regexp: /^(7|6)?[0-9]{7}$/i,
+                                        message: "El número de celular debe empezar por 6 o 7",
+                                    },
+                                    integer: {
+                                        message: "El número de celular no es válido",
+                                    },
+                                },
+                            },
                         },
                         plugins: {
                             trigger: new FormValidation.plugins.Trigger(),
@@ -408,12 +721,9 @@
                         }
                     });
                 }
-
-                // Action buttons
+                // Enviar Formulario
                 submitButton.addEventListener('click', function (e) {
                     e.preventDefault();
-
-                    // Validate form before submit
                     if (validator) {
                         validator.validate().then(function (status) {
                             if (status === 'Valid') {
@@ -438,12 +748,28 @@
                                         submitButton.setAttribute('data-kt-indicator', 'of');
                                         submitButton.disabled = false;
                                         limpiarValidacion(inputs);
-
                                         let errors = Object.entries(response.error);
                                         errors.forEach(error => {
                                             let child = `<div class="form-text text-danger validacion validacion-${error[0]}">${error[1]}</div>`;
                                             let input = document.getElementsByName(error[0])[0];
                                             input.parentElement.insertAdjacentHTML('afterend', child);
+                                        });
+                                    }
+
+                                    if (typeof response.exito !== 'undefined') {
+                                        submitButton.setAttribute('data-kt-indicator', 'of');
+                                        submitButton.disabled = false;
+                                        form.reset();
+                                        limpiarValidacion(inputs);
+                                        $("#modal_asistencia").modal('hide');
+                                        DatatablePersonal.init();
+
+                                        Swal.fire({
+                                            title: "Control de Asistencia",
+                                            text: response.exito,
+                                            icon: "success",
+                                            timer: 3000,
+                                            showConfirmButton: false,
                                         });
                                     }
                                 });
@@ -454,61 +780,41 @@
 
                 cancelButton.addEventListener('click', function (e) {
                     e.preventDefault();
-
                     Swal.fire({
-                        text: "Are you sure you would like to cancel?",
+                        text: "¿Estás seguro de cancelar la edición?",
                         icon: "warning",
                         showCancelButton: true,
                         buttonsStyling: false,
-                        confirmButtonText: "Yes, cancel it!",
-                        cancelButtonText: "No, return",
+                        confirmButtonText: "Si, Cancelar!",
+                        cancelButtonText: "No",
                         customClass: {
                             confirmButton: "btn btn-primary",
                             cancelButton: "btn btn-active-light"
                         }
                     }).then(function (result) {
                         if (result.value) {
-                            form.reset(); // Reset form
-                            modal.hide(); // Hide modal
-                        } else if (result.dismiss === 'cancel') {
-                            Swal.fire({
-                                text: "Your form has not been cancelled!.",
-                                icon: "error",
-                                buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
-                                customClass: {
-                                    confirmButton: "btn btn-primary",
-                                }
-                            });
+                            form.reset();
+                            $("#modal_asistencia").modal('hide');
+                            let inputs = form.querySelectorAll('input, select');
+                            limpiarValidacion(inputs);
                         }
                     });
                 });
             };
 
             return {
-                // Public functions
                 init: function () {
-                    // Elements
-                    modalEl = document.querySelector('#modal_asistencia');
-
-                    if (!modalEl) {
-                        return;
-                    }
-
-                    modal = new bootstrap.Modal(modalEl);
-
                     form = document.querySelector('#formulario_agregar_persona');
                     submitButton = document.getElementById('boton_enviar_formulario');
                     cancelButton = document.getElementById('boton_cancelar_formulario');
-
                     handleForm();
                 }
             };
         }();
 
-        // On document ready
         KTUtil.onDOMContentLoaded(function () {
-            KTModalNewTarget.init();
+            DatatablePersonal.init();
+            RegistrarPersona.init();
         });
 
     </script>

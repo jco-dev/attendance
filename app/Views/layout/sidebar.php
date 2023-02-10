@@ -94,7 +94,7 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion">
                         <div class="menu-item">
-                            <a class="menu-link" href="<?= base_url(route_to('listado-personas')) ?>">
+                            <a class="menu-link" href="<?= base_url(route_to('listado-personal')) ?>">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
