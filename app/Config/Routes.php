@@ -26,15 +26,17 @@ $routes->group("", ['filter' => 'auth:superadmin,admin'], function ($routes) {
 });
 
 /** Persona */
-$routes->get('listado-personal', 'Persona::index', ['name' => 'listado-personal']);
-$routes->get('ajax-listado-personas', 'Persona::ajaxListadoPersona', ['name' => 'ajax-listado-personas']);
-$routes->post('guardar-persona', 'Persona::store', ['name' => 'guardar-persona']);
-$routes->post('verificar-registro-ci-persona', 'Persona::verificarRegistroPersonaCi', ['name' => 'verificar-registro-ci-persona']);
-$routes->post('editar-persona', 'Persona::edit', ['name' => 'editar-persona']);
-$routes->post('actualizar-persona', 'Persona::update', ['name' => 'actualizar-persona']);
-$routes->post('eliminar-persona', 'Persona::eliminarPersona', ['name' => 'eliminar-persona']);
-$routes->post('activar-persona', 'Persona::activarPersona', ['name' => 'activar-persona']);
-$routes->post('ver-asignaciones-horario', 'Persona::verAsignacionesHorario', ['name' => 'ver-asignaciones-horario']);
+$routes->group("", ['filter' => 'auth:superadmin,admin'], function ($routes) {
+    $routes->get('listado-personal', 'Persona::index', ['name' => 'listado-personal']);
+    $routes->get('ajax-listado-personas', 'Persona::ajaxListadoPersona', ['name' => 'ajax-listado-personas']);
+    $routes->post('guardar-persona', 'Persona::store', ['name' => 'guardar-persona']);
+    $routes->post('verificar-registro-ci-persona', 'Persona::verificarRegistroPersonaCi', ['name' => 'verificar-registro-ci-persona']);
+    $routes->post('editar-persona', 'Persona::edit', ['name' => 'editar-persona']);
+    $routes->post('actualizar-persona', 'Persona::update', ['name' => 'actualizar-persona']);
+    $routes->post('eliminar-persona', 'Persona::eliminarPersona', ['name' => 'eliminar-persona']);
+    $routes->post('activar-persona', 'Persona::activarPersona', ['name' => 'activar-persona']);
+    $routes->post('ver-asignaciones-horario', 'Persona::verAsignacionesHorario', ['name' => 'ver-asignaciones-horario']);
+});
 
 if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
     require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
