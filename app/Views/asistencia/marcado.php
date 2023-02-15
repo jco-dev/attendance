@@ -32,7 +32,7 @@ Marcado
                         </label>
                         <input type="text" class="form-control form-control-solid" minlength="6"
                                maxlength="15" id="ci" name="ci" placeholder="Ingrese su número de carnet de identidad" autocomplete="off" autofocus
-                               required />
+                               required style="text-align: center; font-weight: bold;" />
                     </div>
                     <div class="d-flex flex-wrap justify-content-center pb-lg-0">
                         <button type="submit" id="btn_marcado_submit" class="btn btn-primary me-4">
