@@ -85,4 +85,12 @@ class Validation extends BaseConfig
         'ru'        => ['rules' => 'permit_empty|esUnicoRu[ru]', 'errors'=> ['esUnicoRu' => 'El ru ya se encuentra registrado.']]
     ];
 
+    public array $validacionEditarOficina = [
+        'nombre'        => ['rules' => 'required|min_length[3]|max_length[50]|regex_match[/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]+$/]'],
+        'descripcion'   => ['rules' => 'max_length[50]|regex_match[/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]+$/]'],
+        'persona_id'    => ['rules' => 'required'],
+        'sede_id'       => ['rules' => 'required'],
+        'ip'           => ['rules' => 'required|valid_ip'],
+    ];
+
 }

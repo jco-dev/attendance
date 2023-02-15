@@ -25,8 +25,8 @@ $routes->group("", ['filter' => 'auth:superadmin,admin'], function ($routes) {
     $routes->post('marcar-salida-confirmacion', 'Asistencia::marcarSalidaConfirmacion', ['name' => 'marcar-salida-confirmacion']);
 });
 
-/** Persona */
 $routes->group("", ['filter' => 'auth:superadmin,admin'], function ($routes) {
+    /** Persona */
     $routes->get('listado-personal', 'Persona::index', ['name' => 'listado-personal']);
     $routes->get('ajax-listado-personas', 'Persona::ajaxListadoPersona', ['name' => 'ajax-listado-personas']);
     $routes->post('guardar-persona', 'Persona::store', ['name' => 'guardar-persona']);
@@ -36,6 +36,12 @@ $routes->group("", ['filter' => 'auth:superadmin,admin'], function ($routes) {
     $routes->post('eliminar-persona', 'Persona::eliminarPersona', ['name' => 'eliminar-persona']);
     $routes->post('activar-persona', 'Persona::activarPersona', ['name' => 'activar-persona']);
     $routes->post('ver-asignaciones-horario', 'Persona::verAsignacionesHorario', ['name' => 'ver-asignaciones-horario']);
+
+    /** Oficina */
+    $routes->get('listado-oficinas', 'Oficina::index', ['name' => 'listado-oficinas']);
+    $routes->get('ajax-listado-oficinas', 'Oficina::ajaxListadoOficina', ['name' => 'ajax-listado-oficinas']);
+    $routes->post('editar-oficina', 'Oficina::edit', ['name' => 'editar-oficina']);
+    $routes->post('actualizar-oficina', 'Oficina::update', ['name' => 'actualizar-oficina']);
 });
 
 if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
