@@ -38,4 +38,39 @@ class AsistenciaModel extends Model
         $query = $builder->get();
         return $query->getRow();
     }
+
+    public function obtenerAsistenciaMes($personaId, $mes, $anio)
+    {
+        $builder= $this->db->table('asistencia a');
+        $builder->select('a.id as id_asistencia, a.entrada, a.salida, a.fecha ');
+        $builder->join('asignacion_horario ah', 'ah.id=a.asignacion_horario_id');
+        $builder->where('ah.persona_id', $personaId);
+        $builder->where("date_part('MONTH', a.fecha) = '$mes'", null, false);
+        $builder->where("date_part('YEAR', a.fecha) = '$anio'", null, false);
+        $builder->orderBy('a.fecha', 'ASC');
+        $query = $builder->get();
+        return $query->getResult();
+
+    }
+
+    public function verificarMarcadoFecha($fecha,$personaId)
+    {
+        $builder = $this->db->table('asistencia a');
+        $builder->select('a.id as id_asistencia, a.entrada,  a.fecha ');
+        $builder->join('asignacion_horario ah', 'ah.id=a.asignacion_horario_id');
+        $builder->where('ah.persona_id', $personaId);
+        $builder->where('a.fecha', $fecha);
+        $query = $builder->get();
+        return $query->getRow();
+    }
+
+    public function actualizarMarcado($marcadoId, $hora)
+    {
+        $builder = $this->db->table('asistencia');
+        $builder->set('salida', $hora);
+        $builder->where('id', $marcadoId);
+        $builder->update();
+
+        return $this->db->affectedRows();
+    }
 }

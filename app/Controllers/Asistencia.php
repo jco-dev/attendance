@@ -74,10 +74,10 @@ class Asistencia extends BaseController
 
                 $asistencia = $this->model->where("asignacion_horario_id", $asignacion->id)->where("fecha", date('Y-m-d'))->first();
                 $turno = $this->buscarOficinaPersona($ci);
-                if($this->verificarHora($turno->salida, date("H:i:s"))){
+                if ($this->verificarHora($turno->salida, date("H:i:s"))) {
                     $respuesta = $this->marcarSalida($asistencia->salida, $asistencia->id, $persona);
                     return $this->response->setJSON($respuesta);
-                }else{
+                } else {
                     // Salida con confimación //
                     $salida = $turno->salida;
                     $hora   = date('H:i:s');
@@ -168,7 +168,6 @@ class Asistencia extends BaseController
             ];
 
         return $msg;
-
     }
 
     private function verificarRangoFecha($fecha_inicio, $fecha_fin, $fecha): bool
@@ -242,8 +241,7 @@ class Asistencia extends BaseController
      */
     private function marcarSalida($salida, $asistencia_id, $persona): array
     {
-        if($salida !== NULL)
-        {
+        if ($salida !== NULL) {
             return [
                 'simple' => true,
                 'icono'  => 'info',
@@ -251,15 +249,15 @@ class Asistencia extends BaseController
                 'msg'    => "{$persona->nombres} {$persona->paterno}<br>Ya está registrado su salida de hoy."
             ];
         }
-        $respuesta = $this->model->update($asistencia_id,['salida' => date('Y-m-d H:i:s')]);
-        if ($respuesta){
+        $respuesta = $this->model->update($asistencia_id, ['salida' => date('Y-m-d H:i:s')]);
+        if ($respuesta) {
             $msg =  [
                 'simple' => true,
                 'icono'  => 'success',
                 'titulo' => "Control de Asistencia",
                 'msg'    => "<strong>{$persona->nombres} {$persona->paterno}</strong><br>Salida registrado correctamente."
             ];
-        }else{
+        } else {
             $msg =  [
                 'simple' => true,
                 'icono'  => 'error',
@@ -294,16 +292,16 @@ class Asistencia extends BaseController
     {
         $persona = (new PersonaModel())->where('ci', $ci)->first();
         $asignacion = (new AsignacionHorarioModel())->where(['persona_id' => $persona->id, 'estado' => 'REGISTRADO'])->first();
-        if($this->verificarMarcadoHoy($asignacion)){
+        if ($this->verificarMarcadoHoy($asignacion)) {
             return  [
                 'simple'    => true,
                 'icono'     => 'info',
                 'titulo'    => 'Control de Asistencia Entrada',
                 'msg'       => "<strong>{$persona->nombres} {$persona->paterno}</strong><br>La entrada de hoy ya está registrado."
             ];
-        }else{
+        } else {
             $encrypt  = service('encrypter');
-            if($this->model->insert([
+            if ($this->model->insert([
                 'asignacion_horario_id' => $asignacion->id,
                 'usuario_id'            => $encrypt->decrypt(session()->get('id')),
                 'entrada'               => date('Y-m-d H:i:s'),
@@ -323,14 +321,13 @@ class Asistencia extends BaseController
                     'msg'           => "Error al registrar la entrada, verifique con el administrador."
                 ];
             return $msg;
-
         }
     }
 
     private function verificarMarcadoHoy($asignacion): bool
     {
         $asistencia = $this->model->where(["asignacion_horario_id" => $asignacion->id, "fecha" => date('Y-m-d')])->first();
-        if($asistencia)
+        if ($asistencia)
             return true;
         else
             return false;
@@ -348,6 +345,90 @@ class Asistencia extends BaseController
         $res = [];
         if ($asistencia)
             $res = $this->marcarSalida($asistencia->salida, $asistencia->id, $persona);
+        return $this->response->setJSON($res);
+    }
+
+    public function calendarioIndex(): string
+    {
+        $personas = (new PersonaModel())->where('estado', 'REGISTRADO')->findAll();
+
+        return view('asistencia/calendario', [
+            'personas' => $personas,
+        ]);
+    }
+
+    public function listarAsistenciaMensual(): \CodeIgniter\HTTP\ResponseInterface
+    {
+        $mes = $this->request->getPost('mes');
+        $anio = $this->request->getPost('anio');
+        $personaId = $this->request->getPost('personaId');
+        $retultado = (new AsistenciaModel())->obtenerAsistenciaMes($personaId, $mes, $anio);
+        return $this->response->setJSON($retultado);
+    }
+
+    public function marcadoCalendario()
+    {
+
+
+        $personaId = $this->request->getPost('persona_id');
+        $tipoMarcado = $this->request->getPost('tipo_marcado');
+        $fechaHora = str_ireplace(".",":", $this->request->getPost('fecha'));
+        $fechaHora = date("Y-m-d H:i:s", strtotime($fechaHora ?? '') );
+        $fecha =   date("Y-m-d", strtotime($fechaHora ?? ''));
+        $asignacion = (new AsignacionHorarioModel())->where(['persona_id' => $personaId, 'estado' => 'REGISTRADO'])->first();
+
+        $marcadoFecha = (new AsistenciaModel())->verificarMarcadoFecha($fecha, $personaId);
+
+
+        $res = [
+            'exito' => false,
+            'mensaje'    => "No se pudo Registrar el marcado, comuniquese con el administrador."
+        ];
+
+        if (is_null($marcadoFecha) && $tipoMarcado == 'ENTRADA') {
+            $encrypt  = service('encrypter');
+
+            if ($this->model->insert([
+                'asignacion_horario_id' => $asignacion->id,
+                'usuario_id'            => $encrypt->decrypt(session()->get('id')),
+                'entrada'               => $fechaHora,
+                'fecha'                 => $fecha,
+            ]))
+                $res = [
+                    'exito' => true,
+                    'mensaje'    => "Entrada registrado correctamente",
+                    'datos'  => [
+                        'id' => $this->model->insertID(),
+                        'marcado' => $fechaHora,
+                        'fecha' => $fecha,
+                    ]
+                ];
+            else
+                $res = [
+                    'exito' => false,
+                    'mensaje'    => "Error al registrar la entrada, verifique con el administrador."
+                ];
+        }
+
+        if (!is_null($marcadoFecha) && $tipoMarcado == 'SALIDA') {
+
+            if ((new AsistenciaModel())->actualizarMarcado($marcadoFecha->id_asistencia, $fechaHora) > 0)
+                $res = [
+                    'exito' => true,
+                    'mensaje'    => "Salida registrada correctamente",
+                    'datos'  => [
+                        'id' => $marcadoFecha->id_asistencia,
+                        'fecha' => $fecha,
+                        'marcado' => $fechaHora,
+                    ]
+                ];
+            else
+                $res = [
+                    'exito'  => false,
+                    'mensaje'    => "Error al registrar la Salida, verifique con el administrador."
+                ];
+        }
+
         return $this->response->setJSON($res);
     }
 }
