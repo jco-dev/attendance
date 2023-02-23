@@ -91,7 +91,7 @@ $(function() {
                 if (data.exito) {
                     swal.fire({
                         title: "Exito",
-                        text: data.mensaje,
+                        text: data.mensaje || "Se registro correctamente.",
                         icon: "success",
                     })
                     if (data.datos) {
@@ -102,7 +102,7 @@ $(function() {
                 } else {
                     swal.fire({
                         title: "Error",
-                        text: data.mensaje,
+                        text: data.mensaje || "Ocurrio un error.",
                         icon: "error",
                     })
 
