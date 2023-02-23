@@ -32,7 +32,7 @@ class Asistencia extends BaseController
         if (!empty($this->verificarInicioSesion()))
             return $this->response->setJSON($this->verificarInicioSesion());
 
-        $ci = trim($this->request->getPost('ci'));
+        $ci = trim($this->request->getPost('ci') ?? '');
 
         $persona = $this->verificarRegistroPersona($ci);
         if (!empty($persona))

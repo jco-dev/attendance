@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+
 use App\Controllers\BaseController;
 use App\Libraries\SSP;
 use App\Models\OficinaModel;
@@ -70,7 +71,7 @@ class Oficina extends BaseController
 
     public function edit(): \CodeIgniter\HTTP\ResponseInterface
     {
-        if($oficina = (new OficinaModel())->where('id', $this->request->getPost('id'))->first())
+        if ($oficina = (new OficinaModel())->where('id', $this->request->getPost('id'))->first())
             return $this->response->setJSON($oficina);
         else
             return $this->response->setJSON(NULL);
@@ -81,17 +82,17 @@ class Oficina extends BaseController
      */
     public function update(): \CodeIgniter\HTTP\ResponseInterface
     {
-        if(!$this->validate('validacionEditarOficina'))
+        if (!$this->validate('validacionEditarOficina'))
             return $this->response->setJSON(['error' => $this->validator->getErrors()]);
         $datos = [
             'persona_id' => $this->request->getPost('persona_id'),
             'sede_id' => $this->request->getPost('sede_id'),
-            'nombre' => trim($this->request->getPost('nombre')),
-            'descripcion' => trim($this->request->getPost('descripcion')),
-            'ip' => trim($this->request->getPost('ip'))
+            'nombre' => trim($this->request->getPost('nombre') ?? ''),
+            'descripcion' => trim($this->request->getPost('descripcion') ?? ''),
+            'ip' => trim($this->request->getPost('ip') ?? '')
         ];
 
-        if($this->model->update($this->request->getPost('persona_id'), $datos)){
+        if ($this->model->update($this->request->getPost('persona_id'), $datos)) {
             return $this->response->setJSON(['exito' => 'Oficina actualizada correctamente']);
         }
 

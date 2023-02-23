@@ -90,7 +90,7 @@ class Persona extends BaseController
     {
         $ci = $this->request->getPost('ci');
         $persona = new PersonaModel();
-        if ($persona->where('ci', trim($ci))->find())
+        if ($persona->where('ci', trim($ci ?? ''))->find())
             $respuesta = true;
         else
             $respuesta = false;
@@ -126,14 +126,14 @@ class Persona extends BaseController
     public function getArr(): array
     {
         return [
-            'ci' => trim($this->request->getPost('ci')),
+            'ci' => trim($this->request->getPost('ci') ?? ''),
             'expedido' => $this->request->getPost('expedido'),
             'ru' => $this->request->getPost('ru'),
-            'nombres' => mb_convert_case(preg_replace('/\s+/', ' ', trim($this->request->getPost('nombres'))), MB_CASE_UPPER),
-            'paterno' => mb_convert_case(preg_replace('/\s+/', ' ', trim($this->request->getPost('paterno'))), MB_CASE_UPPER),
-            'materno' => mb_convert_case(preg_replace('/\s+/', ' ', trim($this->request->getPost('materno'))), MB_CASE_UPPER),
-            'celular' => trim($this->request->getPost('celular')),
-            'correo' => trim($this->request->getPost('correo'))
+            'nombres' => mb_convert_case(preg_replace('/\s+/', ' ', trim($this->request->getPost('nombres')?? '')), MB_CASE_UPPER),
+            'paterno' => mb_convert_case(preg_replace('/\s+/', ' ', trim($this->request->getPost('paterno')?? '')), MB_CASE_UPPER),
+            'materno' => mb_convert_case(preg_replace('/\s+/', ' ', trim($this->request->getPost('materno')?? '')), MB_CASE_UPPER),
+            'celular' => trim($this->request->getPost('celular') ?? ''),
+            'correo' => trim($this->request->getPost('correo') ?? '')
         ];
     }
 

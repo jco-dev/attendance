@@ -27,7 +27,7 @@ class Login extends BaseController
      */
     public function authenticate(): \CodeIgniter\HTTP\RedirectResponse
     {
-        $usuario = $this->usuarioModel->buscarUsuarioPorCorreo(trim($this->request->getPost('correo')));
+        $usuario = $this->usuarioModel->buscarUsuarioPorCorreo(trim($this->request->getPost('correo') ?? ''));
         if (is_null($usuario))
         {
             return redirect()->back()->with(
@@ -36,7 +36,7 @@ class Login extends BaseController
             );
         }
 
-        if(!password_verify($this->request->getPost('clave'), $usuario->clave))
+        if(!password_verify($this->request->getPost('clave')??'', $usuario->clave))
         {
             return redirect()->back()->with(
                 'msg',
