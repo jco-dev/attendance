@@ -23,6 +23,9 @@ $routes->group("", ['filter' => 'auth:superadmin,admin'], function ($routes) {
     $routes->get('marcado', 'Asistencia::index', ['name' => 'marcado']);
     $routes->post('marcado', 'Asistencia::marcado', ['name' => 'marcado']);
     $routes->post('marcar-salida-confirmacion', 'Asistencia::marcarSalidaConfirmacion', ['name' => 'marcar-salida-confirmacion']);
+    $routes->get('calendario', 'Asistencia::calendarioIndex', ['name' => 'calendario']);
+    $routes->post('calendario', 'Asistencia::listarAsistenciaMensual', ['name' => 'calendario']);
+    $routes->post('marcado-calendario', 'Asistencia::marcadoCalendario', ['name' => 'marcado-calendario']);
 });
 
 $routes->group("", ['filter' => 'auth:superadmin,admin'], function ($routes) {
