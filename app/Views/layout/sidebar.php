@@ -102,11 +102,11 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="#">
+                            <a class="menu-link" href="<?= base_url(route_to('asignacion-horario'))?>">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Asignar horario</span>
+                                <span class="menu-title">Asignación de horario</span>
                             </a>
                         </div>
                         <div class="menu-item">

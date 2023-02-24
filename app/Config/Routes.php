@@ -42,6 +42,10 @@ $routes->group("", ['filter' => 'auth:superadmin,admin'], function ($routes) {
     $routes->get('ajax-listado-oficinas', 'Oficina::ajaxListadoOficina', ['name' => 'ajax-listado-oficinas']);
     $routes->post('editar-oficina', 'Oficina::edit', ['name' => 'editar-oficina']);
     $routes->post('actualizar-oficina', 'Oficina::update', ['name' => 'actualizar-oficina']);
+
+    /** Asignación de horario */
+    $routes->get('asignacion-horario', 'AsignacionHorario::index', ['name' => 'asignacion-horario']);
+    $routes->get('ajax-listado-asignacion-horario', 'AsignacionHorario::ajaxListadoAsignacionHorario', ['name' => 'ajax-listado-asignacion-horario']);
 });
 
 if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
